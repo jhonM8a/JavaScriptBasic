@@ -3,18 +3,22 @@ const PEOPLE_URL = "people/:id";
 
 const opts = { crossDomain: true };
 
-const onPeopleResponse = function(person) {
-  console.log(`Hola, yo soy ${person.name}`);
-};
-
-function obtenerPersonaje(id) {
+function obtenerPersonaje(id, callback) {
   const url = `${API_URL}${PEOPLE_URL.replace(":id", id)}`;
 
-  $.get(url, { crossDomain: true }, onPeopleResponse);
+  $.get(url, opts, function(person) {
+    console.log(`Hola, yo soy ${person.name}`);
+
+    if (callback) {
+      callback();
+    }
+  });
 }
 /** No se sabe en que orden lleguen las respuestas
  * por el asinconismo
  */
-obtenerPersonaje(1);
-obtenerPersonaje(2);
-obtenerPersonaje(3);
+obtenerPersonaje(1, function() {
+  obtenerPersonaje(2, function() {
+    obtenerPersonaje(3);
+  });
+});

@@ -6,19 +6,17 @@ const opts = { crossDomain: true };
 function obtenerPersonaje(id, callback) {
   const url = `${API_URL}${PEOPLE_URL.replace(":id", id)}`;
 
-  $.get(url, opts, function(person) {
-    console.log(`Hola, yo soy ${person.name}`);
-
-    if (callback) {
-      callback();
-    }
+  $.get(url, opts, callback).fail(function() {
+    console.log("Error no se pudo obtener el personaje " + id);
   });
 }
-/** No se sabe en que orden lleguen las respuestas
- * por el asinconismo
- */
-obtenerPersonaje(1, function() {
-  obtenerPersonaje(2, function() {
-    obtenerPersonaje(3);
+
+obtenerPersonaje(1, function(personaje) {
+  console.log(`Hola, yo soy ${personaje.name}`);
+  obtenerPersonaje(2, function(personaje) {
+    console.log(`Hola, yo soy ${personaje.name}`);
+    obtenerPersonaje(3, function(personaje) {
+      console.log(`Hola, yo soy ${personaje.name}`);
+    });
   });
 });

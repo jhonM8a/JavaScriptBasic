@@ -15,6 +15,16 @@ function obtenerPersonaje(id) {
 function onError(id) {
   console.log("Sucedio un error al obtener el personake " + id);
 }
+var ids = [1, 2, 4, 5, 6, 7]; //Cada elemento del array es una promesa
+/*var prmesas = ids.map(function(id) {
+  return obtenerPersonaje(id);
+});*/
+
+var promesasWithArrowFunction = ids.map(id => obtenerPersonaje(id));
+Promise.all(promesasWithArrowFunction)
+  .then(personasjes => console.log(personasjes))
+  .catch(onError);
+/*
 obtenerPersonaje(1)
   .then(personaje => {
     console.log(`El personaje 1 es ${personaje.name}`);
@@ -44,3 +54,4 @@ obtenerPersonaje(1)
     console.log(`El personaje 7 es ${personaje.name}`);
   })
   .catch(onError);
+*/

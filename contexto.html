@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const jhon = {
+            nombre:"jhon",
+            apellido:"ochoa"
+        }
+
+        function saludar(){
+            console.log(`Hoa, mi nombre es ${this.nombre}`) //Hace referencia al contexto de windows
+        }
+
+       // const saludarJhon = saludar.bind(jhon) //Devuleve una nueva funcion atanndo el parametro 'jhon' al this de la funcion
+        
+        /**
+        * se devuleve una nueva función que tiene atada en su this a 'jhon'
+        */
+        //setTimeout(saludar.bind(jhon),1000)
+
+        //saludar.call(jhon) //ejecuta la funcion en ese momento
+        saludar.apply(jhon,[]) //similar al call pero los paramentros van en un array
+    </script>
+</body>
+</html>
